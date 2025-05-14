@@ -10,7 +10,7 @@ spoke_count = 48;
 small_pin_diameter = 2;
 small_pin_height = 10;
 small_pin_clearance = 0.1;
-big_pin_diameter = 3;
+big_pin_diameter = 4;
 big_pin_height = height;
 
 grip_divet_size = 1.6;
@@ -31,10 +31,10 @@ difference() {
   // negative spoke
   for (a=[0:360/spoke_count:359]) {
     rotate([0,0,a+(360/spoke_count*0.5)]) {
-      translate([2,0,0.5]) {
+      translate([2.5,0,0.5]) {
         scale([1,1,16]) {
           rotate([90,45,90]) {
-            cylinder(h=4.7,r1=0.1,r2=0.333,$fn=4);
+            cylinder(h=4.2,r1=0.1,r2=0.333,$fn=4);
           }
         }
       }
