@@ -18,14 +18,22 @@ grip_count = 20;
 inside_grip_divet_size = 2.1;
 inside_grip_count = 24;
 
-// the pin
-pin_min_diameter = 1.95;
-pin_max_diameter = pin_min_diameter+0.75;
 
-// the pin's hole in the wheel
-pin_sheath_width_bottom = pin_min_diameter+2;
-pin_sheath_width_top = pin_max_diameter+0.5;
+
+// the pin
+pin_diameter = 1.95;
+pin_bottom_diameter = pin_diameter+0.75; // the part that slips through the sheath
+pin_top_diameter = pin_bottom_diameter+1.25; // the part that stays inside the sheath
+
+// the pin's sheath inside the wheel
 pin_clearance = 0.075; // increased fitting tolerance
+pin_hole_max_diameter = pin_top_diameter + pin_clearance;
+pin_hole_min_diameter = pin_diameter + pin_clearance;
+pin_sheath_max_diameter = pin_hole_max_diameter+1;
+pin_sheath_min_diameter = pin_hole_min_diameter+0.5;
+// pin sheath latch
+pin_sheath_latch_size = 0.25;
+pin_sheath_latch_height = height*0.5;
 
 // the pin's connection to the mouse
 pin_taper_height = 0.75; // the space on each side of the wheel before touching the mouse
@@ -105,7 +113,7 @@ difference() {
   }
   
   // pin-to-wheel connection
-  #cylinder(h=height,d1=pin_sheath_width_bottom+pin_clearance,d2=pin_sheath_width_top+pin_clearance,$fn=lod);
+  cylinder(h=spoke_height,d=pin_hole_max_diameter, $fn=lod);
 }
 
 // inside grip (outdent)
@@ -124,71 +132,64 @@ for (a=[0:360/inside_grip_count:360]) {
 // pin sheath inside wheel
 difference() {
   // pin sheath
-  union() {
-    cylinder(h=height,d1=pin_sheath_width_bottom+pin_clearance,d2=pin_sheath_width_top+pin_clearance,$fn=lod);
-    
-    *translate([0,0,height-pin_hole_height]) {
-      cylinder(h=pin_hole_height*2,d1=pin_sheath_diameter,d2=pin_min_diameter,$fn=lod);
-    }
-  }
-  
-  // pin hollow
-  *translate([0,0,-0.0001]) {
-    cylinder(h=pin_height+0.0001,d=pin_min_diameter+pin_clearance,$fn=lod);
-  }
+  cylinder(h=height,d1=pin_sheath_max_diameter,d2=pin_sheath_min_diameter,$fn=lod);
   
   // pin-to-wheel connection
-  cylinder(h=height,d2=pin_min_diameter+pin_clearance,d1=pin_max_diameter+pin_clearance,$fn=lod);
+  cylinder(h=height,d1=pin_hole_max_diameter,d2=pin_hole_min_diameter,$fn=lod);
   
   // pin sheath latch
   for (a=[0]) { // add "90" for a cross latch
     rotate([0,0,a]) {
-      translate([-2.5,-0.125,spoke_height]) {
-        cube([5,0.25,height]);
+      translate([-5,-(pin_sheath_latch_size*0.5),pin_sheath_latch_height]) {
+        cube([10,pin_sheath_latch_size,height]);
       }
     }
   }
 }
 
-// pin outside wheel
-translate([18,0,0]) {
-  // pin
-  difference() {
-    cylinder(h=pin_height,d=pin_min_diameter,$fn=lod);
-  
-    // rounded pin end (top)
-    *translate([0,0,pin_height-pin_min_diameter*0.5]) {
+// pin
+for(pin_count = [0]){ // 0: printable pin, 1: pin inside wheel
+  translate([18-(18*pin_count),0,(pin_height-pin_hole_height-pin_taper_height)*pin_count]) {
+    rotate([-180*pin_count,0,0]) {
+      // pin
       difference() {
-      translate([0,0,pin_min_diameter*0.5]) {
-          cube(pin_min_diameter,center=true);
+        cylinder(h=pin_height,d=pin_diameter,$fn=lod);
+      
+        // rounded pin end (top)
+        *translate([0,0,pin_height-pin_diameter*0.5]) {
+          difference() {
+          translate([0,0,pin_diameter*0.5]) {
+              cube(pin_diameter,center=true);
+            }
+            sphere(pin_diameter*0.5,$fn=lod);
+          }
         }
-        sphere(pin_min_diameter*0.5,$fn=lod);
+        
+        // rounded pin end (bottom)
+        *translate([0,0,0]) {
+          difference() {
+            cube(pin_diameter,center=true);
+            translate([0,0,pin_diameter*0.5]) {
+              sphere(pin_diameter*0.5,$fn=lod);
+            }
+          }
+        }
+      }
+      
+      // pin taper (top)
+      translate([0,0,pin_height-pin_hole_height-pin_taper_height]) {
+          cylinder(h=pin_taper_height,d2=pin_diameter,d1=pin_top_diameter,$fn=lod);
+      }
+      
+      // pin taper (bottom)
+      translate([0,0,pin_hole_height]) {
+          cylinder(h=pin_taper_height,d1=pin_diameter,d2=pin_bottom_diameter,$fn=lod);
+      }
+      
+      // pin-to-wheel connection
+      translate([0,0,pin_hole_height+pin_taper_height]) {
+        cylinder(h=height,d1=pin_diameter,d2=pin_top_diameter,$fn=lod);
       }
     }
-    
-    // rounded pin end (bottom)
-    *translate([0,0,0]) {
-      difference() {
-        cube(pin_min_diameter,center=true);
-        translate([0,0,pin_min_diameter*0.5]) {
-          sphere(pin_min_diameter*0.5,$fn=lod);
-        }
-      }
-    }
-  }
-  
-  // pin taper (top)
-  translate([0,0,pin_height-pin_hole_height-pin_taper_height]) {
-      cylinder(h=pin_taper_height,d2=pin_min_diameter,d1=pin_max_diameter,$fn=lod);
-  }
-  
-  // pin taper (bottom)
-  translate([0,0,pin_hole_height]) {
-      cylinder(h=pin_taper_height,d1=pin_min_diameter,d2=pin_max_diameter,$fn=lod);
-  }
-  
-  // pin-to-wheel connection
-  translate([0,0,pin_hole_height+pin_taper_height]) {
-    cylinder(h=height,d1=pin_diameter,d2=pin_max_diameter,$fn=lod);
   }
 }
