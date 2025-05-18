@@ -1,5 +1,5 @@
 // geometry resolution
-lod = 64; // medium: 64, high: 128
+lod = 128; // medium: 64, high: 128
 
 // the wheel
 outer_diameter = 25;
