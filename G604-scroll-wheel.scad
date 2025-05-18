@@ -15,7 +15,6 @@ grip_divet_size = 1.6;
 grip_count = 20;
 
 // the divets on the inside of the wheel (scrolling)
-inside_grip_divet_size = 2.1;
 inside_grip_count = 24;
 
 // the pin
