@@ -18,24 +18,24 @@ grip_count = 20;
 inside_grip_count = 24;
 
 // the pin
-pin_diameter = 1.95;
+pin_diameter = 2;
 pin_bottom_diameter = pin_diameter+0.75; // the part that slips through the sheath
 pin_top_diameter = pin_bottom_diameter+1.25; // the part that stays inside the sheath
 
 // the pin's sheath inside the wheel
-pin_clearance = 0.00; // increased fitting tolerance
-pin_hole_max_diameter = pin_top_diameter + pin_clearance;
-pin_hole_min_diameter = pin_diameter + pin_clearance;
-pin_sheath_max_diameter = pin_hole_max_diameter+1;
+pin_hole_max_diameter = pin_top_diameter;
+pin_hole_min_diameter = pin_diameter;
+pin_sheath_max_diameter = pin_hole_max_diameter+1.6;
 pin_sheath_min_diameter = pin_hole_min_diameter+0.5;
 // pin sheath latch
 pin_sheath_latch_size = 0.25;
 pin_sheath_latch_height = height*0.5;
+pin_sheath_latch_clearance = 0.2; // increased tolerance for latch
 
 // the pin's connection to the mouse
 pin_taper_height = 0.75; // the space on each side of the wheel before touching the mouse
-pin_hole_height = 0.75; // how far the pin extends into the mouse's hole
-pin_height = height+(pin_hole_height*2)+(pin_taper_height*2);
+pin_hole_height = 0.6; // how far the pin extends into the mouse's hole
+pin_height = height+(pin_hole_height*2)+(pin_taper_height*2)+pin_sheath_latch_clearance;
 
 difference() {
   // wheel
@@ -49,10 +49,10 @@ difference() {
   // negative spoke
   for (a=[0:360/spoke_count:359]) {
     rotate([0,0,a+(360/spoke_count*0.5)]) {
-      translate([2.5,0,0.5]) {
+      translate([2.8,0,0.5]) {
         scale([1,1,16]) {
           rotate([90,45,90]) {
-            cylinder(h=4.2,r1=0.1,r2=0.333,$fn=4);
+            cylinder(h=4,r1=0.1,r2=0.333,$fn=4);
           }
         }
       }
@@ -73,10 +73,10 @@ difference() {
   // inside grip (indent)
   for (a=[0:360/inside_grip_count:360]) {
     rotate([0,0,a+(360/24*0.5)]) {
-      translate([inner_diameter*0.5-0.25,0,spoke_height]) {
+      translate([inner_diameter*0.5-0.485,0,spoke_height]) {
         rotate([0,0,-95]){
           rotate_extrude(190,$fn=lod) {
-            square([0.5,height-spoke_height+0.001]);
+            square([0.6667,height-spoke_height+0.001]);
           }
         }
       }
@@ -116,10 +116,10 @@ difference() {
 // inside grip (outdent)
 for (a=[0:360/inside_grip_count:360]) {
   rotate([0,0,a]) {
-    translate([inner_diameter*0.5+0.26,0,0]) {
+    translate([inner_diameter*0.5+0.485,0,0]) {
       rotate([0,0,90]){
         rotate_extrude(190,$fn=lod) {
-          square([0.55,height]);
+          square([0.6667,height]);
         }
       }
     }
@@ -184,7 +184,7 @@ for(pin_count = [0]){ // 0: printable pin, 1: pin inside wheel
       }
       
       // pin-to-wheel connection
-      translate([0,0,pin_hole_height+pin_taper_height]) {
+      translate([0,0,pin_hole_height+pin_taper_height+pin_sheath_latch_clearance]) {
         cylinder(h=height,d1=pin_diameter,d2=pin_top_diameter,$fn=lod);
       }
     }
