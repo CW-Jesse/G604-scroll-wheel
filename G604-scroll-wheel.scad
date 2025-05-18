@@ -18,15 +18,13 @@ grip_count = 20;
 inside_grip_divet_size = 2.1;
 inside_grip_count = 24;
 
-
-
 // the pin
 pin_diameter = 1.95;
 pin_bottom_diameter = pin_diameter+0.75; // the part that slips through the sheath
 pin_top_diameter = pin_bottom_diameter+1.25; // the part that stays inside the sheath
 
 // the pin's sheath inside the wheel
-pin_clearance = 0.075; // increased fitting tolerance
+pin_clearance = 0.00; // increased fitting tolerance
 pin_hole_max_diameter = pin_top_diameter + pin_clearance;
 pin_hole_min_diameter = pin_diameter + pin_clearance;
 pin_sheath_max_diameter = pin_hole_max_diameter+1;
