@@ -6,16 +6,15 @@ The reduced weight is an upgrade for gaming, but the infinite scroll ability is 
 
 ### Weight comparison
 
-* Original: 141.1 g (source: RTings)
-* New wheel: 124.4 g (12% lighter)
-* New wheel + AAA battery: 110.4 g (22% lighter)
+* Old wheel: 12.9 g (12.3 g metal, 0.6 g plastic)
+* New wheel: 0.8 g
 
-Weight measurements from a 0.2 mm nozzle PETG print (shown in video demo below). Further weight reductions are possible through improved 3D printing methods such as removing top and bottom shell layers and reducing infill.
+Weight measurements from a 0.2 mm nozzle PETG print. Further weight reductions are possible through improved 3D printing methods.
 
-### Video demonstration
+### Video demo
 
 https://github.com/user-attachments/assets/42d6f1f6-73c2-4647-afaa-8bac0a2d82c8
 
-### Model image
+### Model preview
 
 ![image](https://github.com/user-attachments/assets/b3b9a25b-d777-4c12-a367-658450d3b720)
