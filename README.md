@@ -4,6 +4,8 @@ A 3D-printable replacement scroll wheel for the G604 mouse. This is meant to be 
 
 The reduced weight is an upgrade for gaming, but the infinite scroll ability is lost as it relies on a heavy wheel.
 
+Might also be compatible with G500, G502, G900, and G903.
+
 ### Weight comparison
 
 * Old wheel: 12.9 g (12.3 g metal, 0.6 g plastic)
