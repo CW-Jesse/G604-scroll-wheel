@@ -7,7 +7,7 @@ Demonstration in video printed in PETG with a 0.2 mm nozzle.
 ### Weight comparison
 
 * Original: 141.1 g (source: RTings)
-* Wheel replaced: 124.4 g (12% lighter)
+* New wheel: 124.4 g (12% lighter)
 * New wheel + AAA battery: 110.4 g (22% lighter)
 
 ### Video demonstration
