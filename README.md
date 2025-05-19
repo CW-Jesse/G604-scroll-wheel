@@ -2,7 +2,7 @@
 
 A 3D-printable replacement scroll wheel for the G604 mouse. This is meant to be a compatible replacement, _not_ a recreation. As a result of being compatible, many similarities are inevitable but unintended.
 
-The reduced weight is an upgrade for gaming, but the infinite scroll ability is lost as it relies a the heavy wheel.
+The reduced weight is an upgrade for gaming, but the infinite scroll ability is lost as it relies on a heavy wheel.
 
 ### Weight comparison
 
