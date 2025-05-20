@@ -9,7 +9,7 @@ Might also be compatible with G500, G502, G900, and G903.
 ### Weight comparison
 
 * Old wheel: 12.9 g (12.3 g metal, 0.6 g plastic)
-* New wheel: 0.8 g
+* New wheel: 0.8 g (6% of original weight)
 
 Weight measurements from a 0.2 mm nozzle PETG print. Further weight reductions are possible through improved 3D printing methods.
 
